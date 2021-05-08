@@ -168,7 +168,7 @@ public:
 };
 
 template<class T>
-vector<double> NSamples(int n, T rv)                //2
+vector<double> NSamples(int n, T rv)                //Can take any random variable T
 {
     vector<double> samples;
     for(int i = 0; i < n; ++i)
@@ -181,7 +181,7 @@ vector<double> NSamples(int n, T rv)                //2
 }
 
 template<class T>
-double CDF(int n, double x, T rv)                   //3
+double CDF(int n, double x, T rv)                   //Takes just a rv type 
 {
     int sum = 0;
     for(int i = 0; i < n; ++i)
@@ -196,7 +196,21 @@ double CDF(int n, double x, T rv)                   //3
 }
 
 template<class T>
-bool VectorToCSV(vector<T> vec, std::ofstream& oFile)
+double CDF(double x, vector<double> samples)                   //Takes a set of samples 
+{
+    int sum = 0;
+    for(double sample : samples)
+    {
+        if(sample < x)
+        {
+            ++sum;
+        }
+    }
+    return ((double)sum) / ((double)samples.size());
+}
+
+template<class T>
+bool VectorToCSV(vector<T> vec, std::ofstream& oFile)   
 {
     if(!oFile.is_open())
     {
